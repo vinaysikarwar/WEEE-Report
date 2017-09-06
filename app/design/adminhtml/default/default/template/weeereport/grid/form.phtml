@@ -1,0 +1,135 @@
+<div class="entry-edit">
+   <form id="filter_form" action="http://spyfinal.tijdelijkelink.nl/index.php/backend2/report_sales/sales/key/9922778d623bf36d956fb5fe5595b47b/" method="get" class="AVAST_PAM_nonloginform">
+      <div></div>
+      <div class="entry-edit-head">
+         <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Filter");?></h4>
+         <div class="form-buttons"></div>
+      </div>
+      <div class="fieldset " id="sales_report_base_fieldset">
+         <div class="hor-scroll">
+            <table cellspacing="0" class="form-list">
+               <tbody>
+                  <tr>
+                     <td colspan="2" class="hidden"><input id="sales_report_store_ids" name="store_ids" value="" type="hidden"></td>
+                  </tr>
+				  <tr>
+					<td class="label"><?php echo $this->__('Show Report For:') ?></td>
+					<td class="value"><?php echo $this->getChildHtml('store.switcher'); ?></td>
+				  </tr>
+				  <tr>
+                     <td class="label"><label for="country"><?php echo $this->__("Country");?></label></td>
+                     <td class="value">
+                        <?php $_countries = Mage::getResourceModel('directory/country_collection')
+									->loadData()
+									->toOptionArray(false) ?>
+						<?php if (count($_countries) > 0): ?>
+							<select name="country" id="country">
+								<option value=""><?php echo $this->__("-- Please Select --");?></option>
+								<?php foreach($_countries as $_country): ?>
+									<option value="<?php echo $_country['value'] ?>">
+										<?php echo $_country['label'] ?>
+									</option>
+								<?php endforeach; ?>
+							</select>
+						<?php endif; ?>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="label"><label for="year"><?php echo $this->__("Year");?></label></td>
+                     <td class="value">
+						<select name="year" id="year" class="required-entry select multiselect store_switcher" multiple="multiple">
+							<option value="all"><?php echo $this->__("All");?></option>
+							<?php
+							for($j=date('Y')-80;$j<=date('Y');$j++)
+							{
+							echo "<option value='".$j."'>".$j."</option>";
+							}
+							?>
+						</select>
+                     </td>
+                  </tr>
+                  <!--tr>
+                     <td class="label"><label for="sales_report_period_type">Period</label></td>
+                     <td class="value">
+                        <select id="sales_report_period_type" name="period_type" title="Period" class=" select">
+                           <option value="day">Day</option>
+                           <option value="month">Month</option>
+                           <option value="year">Year</option>
+                        </select>
+                     </td>
+                  </tr-->
+				  <?php 
+					$baseUrl = Mage::getStoreConfig(Mage_Core_Model_Url::XML_PATH_SECURE_URL);
+					$imgUrl = $baseUrl.'skin/adminhtml/default/default/images/grid-cal.gif'
+					?>
+                  <tr>
+                     <td class="label"><label for="sales_report_from"><?php echo $this->__("From");?> <span class="required">*</span></label></td>
+                     <td class="value">
+                        <input name="from" id="sales_report_from" value="" title="From" type="text" class=" required-entry input-text" style="width:110px !important;"> <img src="<?php echo $imgUrl; ?>" alt="" class="v-middle" id="sales_report_from_trig" title="Select Date" style="">
+                        <script type="text/javascript">
+                           //<![CDATA[
+                               Calendar.setup({
+                                   inputField: "sales_report_from",
+                                   ifFormat: "%m/%e/%Y",
+                                   showsTime: false,
+                                   button: "sales_report_from_trig",
+                                   align: "Bl",
+                                   singleClick : true
+                               });
+                           //]]>
+                        </script>            
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="label"><label for="sales_report_to"><?php echo $this->__("To");?> <span class="required">*</span></label></td>
+                     <td class="value">
+                        <input name="to" id="sales_report_to" value="" title="To" type="text" class=" required-entry input-text" style="width:110px !important;"> <img src="<?php echo $imgUrl; ?>" alt="" class="v-middle" id="sales_report_to_trig" title="Select Date" style="">
+                        <script type="text/javascript">
+                           //<![CDATA[
+                               Calendar.setup({
+                                   inputField: "sales_report_to",
+                                   ifFormat: "%m/%e/%Y",
+                                   showsTime: false,
+                                   button: "sales_report_to_trig",
+                                   align: "Bl",
+                                   singleClick : true
+                               });
+                           //]]>
+                        </script>            
+                     </td>
+                  </tr>
+				   <tr>
+                     <td class="label"><label for="month"><?php echo $this->__("Month");?></label></td>
+                     <td class="value">
+						<select name="month" id="month" class="required-entry select multiselect store_switcher" multiple="multiple">
+							<option value="all"><?php echo $this->__("All");?></option>
+							<?php $months = array(
+										'1' => 'January',
+										'2' => 'February',
+										'3' => 'March',
+										'4' => 'April',
+										'5' => 'May',
+										'6' => 'June',
+										'7' => 'July',
+										'8' => 'August',
+										'9' => 'September',
+										'10' => 'October',
+										'11' => 'November',
+										'12' => 'December',
+									);
+								foreach($months as $key => $month){
+									?>
+										<option value="<?php echo $key; ?>"><?php echo $this->__($month); ?></option> 
+									<?php
+								}
+							?>
+						</select>
+                     </td>
+                  </tr>
+                  
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </form>
+</div>

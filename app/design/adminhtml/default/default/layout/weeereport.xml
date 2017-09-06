@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<weeereport_adminhtml_weeereport_index>
+		<reference name="messages">
+			<action method="addNotice" translate="message">
+				<message>This report depends on timezone configuration. Once timezone is changed, the lifetime statistics need to be refreshed.</message>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="adminhtml/report_product_viewed" template="weeereport/grid/container.phtml" name="weereport.report.grid.container">
+				<block type="weeereport/adminhtml_weeereport" name="weeereport" template="weeereport/grid/form.phtml">
+					<block type="adminhtml/store_switcher" template="weeereport/storeswitcher/enhanced.phtml" name="store.switcher">
+						<action method="setStoreVarName"><var_name>store_ids</var_name></action>
+					</block>
+				</block>
+				<block type="adminhtml/report_filter_form" name="grid.filter.form">
+					<action method="setFieldVisibility">
+						<field>report_type</field>
+						<visibility>0</visibility>
+					</action>
+				</block>
+			</block>
+		</reference>
+	</weeereport_adminhtml_weeereport_index>
+</layout>

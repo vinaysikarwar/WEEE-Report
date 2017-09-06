@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <WTC_WeeeReport>
+      <version>0.1.0</version>
+    </WTC_WeeeReport>
+  </modules>
+  <global>
+    <helpers>
+      <weeereport>
+        <class>WTC_WeeeReport_Helper</class>
+      </weeereport>
+    </helpers>
+	<blocks>
+	  <weeereport>
+		<class>WTC_WeeeReport_Block</class>
+	  </weeereport>
+	</blocks>
+	<models>
+	  <weeereport>
+		<class>WTC_WeeeReport_Model</class>
+		<resourceModel>weeereport_mysql4</resourceModel>
+	  </weeereport>
+	</models>
+	<resources>
+	  <productattribute1504613843_setup>
+		<setup>
+		  <module>WTC_WeeeReport</module>
+		  <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </productattribute1504613843_setup>
+	  <productattribute1504613843_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </productattribute1504613843_write>
+	  <productattribute1504613843_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </productattribute1504613843_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <weeereport>
+	    <use>admin</use>
+		<args>
+		  <module>WTC_WeeeReport</module>
+		  <frontName>admin_weeereport</frontName>
+		</args>
+	  </weeereport>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <report module="weeereport">
+		<children>
+		  <weeereport module="weeereport">
+			<title>Wee Report</title>
+			<sort_order>0</sort_order>
+			<action>admin_weeereport/adminhtml_weeereport</action>
+		  </weeereport>
+		  <children>
+		</children>
+		</children>
+	  </report>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<weeereport translate="title" module="weeereport">
+			  <title>WeeeReport</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+				<weeereport translate="title">
+					<title>Wee Report</title>
+				</weeereport>
+			  </children>
+			</weeereport>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<weeereport>
+		  <file>weeereport.xml</file>
+		</weeereport>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 
