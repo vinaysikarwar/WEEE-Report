@@ -29,10 +29,16 @@
  * @see Mage_Adminhtml_Block_Store_Switcher
  */
 ?>
-
+<?php
+$session = Mage::getSingleton('core/session');
+$storeIds = array();
+if(null != $session->getStore()){
+	$storeIds = explode(",",$session->getWeeeStore());	
+}
+?>
 <?php if ($this->isShow()): ?>
-<select name="store_switcher" id="store_switcher" class="required-entry select multiselect store_switcher" multiple="multiple">
-    <option value=""><?php echo $this->__('All Websites') ?></option>
+<select name="store" id="store_switcher" class="select multiselect store_switcher" multiple="multiple">
+    <option value="all"><?php echo $this->__('All Websites') ?></option>
     <?php foreach ($this->getWebsiteCollection() as $_website): ?>
         <?php $showWebsite=false; ?>
         <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
@@ -46,7 +52,7 @@
                     <?php $showGroup = true; ?>
                     <option group="true" value="<?php echo implode(',', $_group->getStoreIds()) ?>"<?php if($this->getRequest()->getParam('store_ids') == implode(',', $_group->getStoreIds())): ?> selected<?php endif; ?> disabled>&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_group->getName()) ?></option>
                 <?php endif; ?>
-                <option value="<?php echo $_store->getId() ?>"<?php if($this->getStoreId() == $_store->getId()): ?> selected<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_store->getName()) ?></option>
+                <option value="<?php echo $_store->getId() ?>"<?php if(in_array($_store->getId(),$storeIds)): ?> selected<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_store->getName()) ?></option>
             <?php endforeach; ?>
             <?php if ($showGroup): ?>
                 </optgroup>

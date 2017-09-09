@@ -60,12 +60,10 @@
 	  <report module="weeereport">
 		<children>
 		  <weeereport module="weeereport">
-			<title>Wee Report</title>
+			<title>WEEE Report</title>
 			<sort_order>0</sort_order>
 			<action>admin_weeereport/adminhtml_weeereport</action>
 		  </weeereport>
-		  <children>
-		</children>
 		</children>
 	  </report>
 	</menu>
@@ -81,7 +79,7 @@
 			  <sort_order>1000</sort_order>
 			  <children>
 				<weeereport translate="title">
-					<title>Wee Report</title>
+					<title>WEEE Report</title>
 				</weeereport>
 			  </children>
 			</weeereport>

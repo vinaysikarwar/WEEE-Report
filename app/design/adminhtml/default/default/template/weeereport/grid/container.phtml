@@ -28,19 +28,25 @@
     <table cellspacing="0">
         <tr>
             <td style="<?php echo $this->getHeaderWidth(); ?>"><h3 class="icon-head head-report-product-viewed"><?php echo $this->__("Weee Report"); ?></h3></td>
-            <td class="form-buttons"><?php echo $this->getButtonsHtml(); ?></td>
+            <td class="form-buttons"><?php echo $this->getButtonsHtml(); ?>
+				<button id="export_pdf" title="Export Weee Report" type="button" class="scalable " onclick="Exportpdf(event)">
+					<span>
+						<span>
+							<span>
+								<?php echo $this->__("Export Weee Report"); ?>
+							</span>
+						</span>
+					</span>
+				</button>
+			</td>
         </tr>
     </table>
 </div>
 <div>
-    <?php echo $this->getChildHtml('weeereport'); ?>
+    <?php echo $this->getChildHtml('weeereport.form'); ?>
 </div>
-<div>
-    <?php //echo $this->getChildHtml('grid.filter.form'); ?>
-</div>
-<div>
-    <?php //echo $this->getGridHtml() ?>
-</div>
+<div><?php echo $this->getChildHtml('weeereport_filter'); ?></div>
+<div><?php echo $this->getChildHtml('weeereport'); ?></div>
 <script type="text/javascript">
 //<![CDATA[
     function filterFormSubmit() {
@@ -55,4 +61,8 @@
         }
     }
 //]]>
+
+
+
+   
 </script>

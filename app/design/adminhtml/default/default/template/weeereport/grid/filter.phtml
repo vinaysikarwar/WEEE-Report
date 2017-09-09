@@ -1,0 +1,35 @@
+<?php 
+	$filter = $this->getFilterData(); 
+	if(count($filter) > 0){
+?>
+<div class="grid">
+    <div class="hor-scroll">
+    <table cellspacing="0" class="actions">
+	<colgroup>
+		<col width="100">
+		<col width="100">
+		<col width="100">
+	</colgroup>
+	<thead>
+		<tr class="headings">
+			<th class=" no-link"><span class="nobr"><?php echo $this->__("Store ids"); ?></span></th>
+			<th class=" no-link"><span class="nobr"><?php echo $this->__("Country"); ?></span></th>
+			<th class=" no-link"><span class="nobr"><?php echo $this->__("Year"); ?></span></th>
+			<th class=" no-link"><span class="nobr"><?php echo $this->__("From - To"); ?></span></th>
+			<th class=" no-link"><span class="nobr"><?php echo $this->__("Month"); ?></span></th>
+		</tr>
+	</thead>
+	<tbody>
+	
+	<tr>
+		<td><?php echo $filter['store']; ?></td>
+		<td><?php echo $filter['country']; ?></td>
+		<td><?php echo $filter['year']; ?></td>
+		<td><?php echo $filter['report_from'] .' - '.$filter['report_to']; ?></td>
+		<td><?php echo $filter['month']; ?></td>
+	</tr>
+	</tbody>
+</table>
+</div>
+</div>
+	<?php } ?>

@@ -1,0 +1,72 @@
+<?php 
+	$items = $this->getItems();
+	$count = count($items);
+	$filter = $this->getFilterData();	
+?>
+<label><b><?php echo $this->__("$count record found!"); ?></b></label>
+<div id="id_1dc788717275c5a7a4148783f85657bb">
+<div class="grid">
+    <div class="hor-scroll">
+		<table cellspacing="0" class="data" id="id_1dc788717275c5a7a4148783f85657bb_table">
+			<colgroup>
+				<col width="100">
+				<col width="100">
+				<col width="100">
+			</colgroup>
+			<thead>
+				<tr class="headings">
+					<th class=" no-link"><span class="nobr"><?php echo $this->__("Sku"); ?></span></th>
+					<th class=" no-link"><span class="nobr"><?php echo $this->__("Store Name"); ?></span></th>
+					<th class=" no-link"><span class="nobr"><?php echo $this->__("Country"); ?></span></th>
+					<th class=" no-link"><span class="nobr"><?php echo $this->__("Total Ordered Qty"); ?></span></th>
+					<!--th class=" no-link"><span class="nobr"><?php echo $this->__("Sum of Amount Ordered"); ?></span></th-->
+					<th class=" no-link"><span class="nobr"><?php echo $this->__("Sum of Total Weight"); ?></span></th>
+				</tr>
+			</thead>
+			<tbody>
+			
+		<?php
+		$i = 0;
+		if(count($items) > 0) { 
+ 		 foreach($items as $item)
+		 {
+			 $totalCost = $item['Amount'] * $item['total_amount'];
+			 $totalWeight = $item['total_weight'] * $item['total_amount'];
+			 ?>
+			<tr>
+				<td><?php echo $item['Sku']; ?></td>
+				<td><?php echo $item['store_name'];  ?></td>
+				<td><?php echo $item['Country']; ?></td>
+				<td><?php echo round($item['Amount'],0); ?></td>
+				<!--td><?php //echo $totalCost; ?></td-->
+				<td><?php echo $this->getProductTotalWeight($totalWeight); ?></td>
+			
+			</tr>
+			<?php
+			$i++;
+		 }
+			
+			}else { ?>
+				<tr class="even">
+					<td class="empty-text a-center" colspan="10"><?php echo $this->__("No records found." ); ?></td>
+				</tr>
+			<?php } ?>
+			</tbody>
+		</table>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    function Exportpdf(event) {
+		event.preventDefault();
+        var filters = $$('#filter_form input', '#filter_form select');
+        var elements = [];
+        for(var i in filters){
+            if(filters[i].value && filters[i].value.length && !filters[i].disabled) elements.push(filters[i]);
+        }
+        var validator  = new Validation('filter_form');
+        if (validator.validate()) {
+            setLocation('<?php echo $this->getPdfExportUrl(); ?>filter/'+encode_base64(Form.serializeElements(elements))+'/');
+        }
+    }
+</script>

@@ -1,5 +1,10 @@
+<?php 
+$block = $this->getLayout()->createBlock('weeereport/adminhtml_weeereport');
+$filter = $block->getFilterData();
+$session = Mage::getSingleton('core/session'); 
+?>
 <div class="entry-edit">
-   <form id="filter_form" action="http://spyfinal.tijdelijkelink.nl/index.php/backend2/report_sales/sales/key/9922778d623bf36d956fb5fe5595b47b/" method="get" class="AVAST_PAM_nonloginform">
+   <form id="filter_form" action="<?php echo $this->getUrl('admin_weeereport/adminhtml_weeereport/generateReport'); ?>" method="get">
       <div></div>
       <div class="entry-edit-head">
          <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Filter");?></h4>
@@ -13,41 +18,43 @@
                      <td colspan="2" class="hidden"><input id="sales_report_store_ids" name="store_ids" value="" type="hidden"></td>
                   </tr>
 				  <tr>
-					<td class="label"><?php echo $this->__('Show Report For:') ?></td>
+					<td class="label"><?php echo $this->__('Select Stores:') ?></td>
 					<td class="value"><?php echo $this->getChildHtml('store.switcher'); ?></td>
 				  </tr>
 				  <tr>
                      <td class="label"><label for="country"><?php echo $this->__("Country");?></label></td>
                      <td class="value">
-                        <?php $_countries = Mage::getResourceModel('directory/country_collection')
+                        <?php /* $_countries = Mage::getResourceModel('directory/country_collection')
 									->loadData()
-									->toOptionArray(false) ?>
-						<?php if (count($_countries) > 0): ?>
+									->toOptionArray(false) */
+							$country =  Mage::getStoreConfig('general/country/allow');
+							$_countries = explode(",",$country);
+							?>
 							<select name="country" id="country">
 								<option value=""><?php echo $this->__("-- Please Select --");?></option>
 								<?php foreach($_countries as $_country): ?>
-									<option value="<?php echo $_country['value'] ?>">
-										<?php echo $_country['label'] ?>
+									<?php $country_name = Mage::app()->getLocale()->getCountryTranslation($_country); ?>
+									<option value="<?php echo $_country ?>" <?php if($session->getWeeCountry() == $_country) echo "selected"; ?>>
+										<?php echo $country_name; ?>
 									</option>
 								<?php endforeach; ?>
 							</select>
-						<?php endif; ?>
                      </td>
                   </tr>
-                  <tr>
+                  <?php /* <tr>
                      <td class="label"><label for="year"><?php echo $this->__("Year");?></label></td>
                      <td class="value">
-						<select name="year" id="year" class="required-entry select multiselect store_switcher" multiple="multiple">
+						<select name="year" id="year" class=" select multiselect store_switcher" multiple="multiple">
 							<option value="all"><?php echo $this->__("All");?></option>
 							<?php
-							for($j=date('Y')-80;$j<=date('Y');$j++)
+							for($j=date('Y')-20;$j<=date('Y');$j++)
 							{
 							echo "<option value='".$j."'>".$j."</option>";
 							}
 							?>
 						</select>
                      </td>
-                  </tr>
+                  </tr> */ ?>
                   <!--tr>
                      <td class="label"><label for="sales_report_period_type">Period</label></td>
                      <td class="value">
@@ -65,7 +72,7 @@
                   <tr>
                      <td class="label"><label for="sales_report_from"><?php echo $this->__("From");?> <span class="required">*</span></label></td>
                      <td class="value">
-                        <input name="from" id="sales_report_from" value="" title="From" type="text" class=" required-entry input-text" style="width:110px !important;"> <img src="<?php echo $imgUrl; ?>" alt="" class="v-middle" id="sales_report_from_trig" title="Select Date" style="">
+                        <input name="report_from" id="sales_report_from" value="<?php echo $session->getReportFrom(); ?>" title="From" type="text" class="  input-text" style="width:110px !important;"> <img src="<?php echo $imgUrl; ?>" alt="" class="v-middle" id="sales_report_from_trig" title="Select Date" style="">
                         <script type="text/javascript">
                            //<![CDATA[
                                Calendar.setup({
@@ -83,7 +90,7 @@
                   <tr>
                      <td class="label"><label for="sales_report_to"><?php echo $this->__("To");?> <span class="required">*</span></label></td>
                      <td class="value">
-                        <input name="to" id="sales_report_to" value="" title="To" type="text" class=" required-entry input-text" style="width:110px !important;"> <img src="<?php echo $imgUrl; ?>" alt="" class="v-middle" id="sales_report_to_trig" title="Select Date" style="">
+                        <input name="report_to" id="sales_report_to" value="<?php echo $session->getReportTo(); ?>" title="To" type="text" class="  input-text" style="width:110px !important;"> <img src="<?php echo $imgUrl; ?>" alt="" class="v-middle" id="sales_report_to_trig" title="Select Date" style="">
                         <script type="text/javascript">
                            //<![CDATA[
                                Calendar.setup({
@@ -98,10 +105,11 @@
                         </script>            
                      </td>
                   </tr>
+				  <?php /*
 				   <tr>
                      <td class="label"><label for="month"><?php echo $this->__("Month");?></label></td>
                      <td class="value">
-						<select name="month" id="month" class="required-entry select multiselect store_switcher" multiple="multiple">
+						<select name="month" id="month" class=" select multiselect store_switcher" multiple="multiple">
 							<option value="all"><?php echo $this->__("All");?></option>
 							<?php $months = array(
 										'1' => 'January',
@@ -125,7 +133,7 @@
 							?>
 						</select>
                      </td>
-                  </tr>
+                  </tr> */ ?>
                   
                </tbody>
             </table>
